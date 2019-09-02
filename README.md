@@ -6,3 +6,6 @@
 ### 《MySQL必知必会》笔记二次整理
 [Chatper 1-5](MySQL/MySQLCC_Chatper1-5)
 
+### 统计学
+
+
