@@ -4,4 +4,4 @@
 ## MySQL
 
 ### 《MySQL必知必会》笔记二次整理
-[Chatper 1 - 5](./MySQL/《MySQL必知必会》Chatper 1-5)
+[Chatper 1-5] (/MySQL/《MySQL必知必会》Chatper 1-5)
