@@ -1,0 +1,79 @@
+Chapter 6 	过滤数据
+1.	使用where子句
+SELECT prod_name, prod_price FROM products
+WHERE prod_price = 2.5;
+2.	操作符
+=, <>, !=, >, >=, <, <=, BETWEEN, IS NULL
+检查单个值：
+SELECT prod_name, prod_price FROM products
+WHERE prod_name = ‘fuses’; //默认不区分大小写
+不匹配检查
+SELECT vend_id, prod_name FROM products
+WHERE vend_id <> 1003; 
+范围值检查：
+SELECT prod_name, prod_price FROM products
+WHERE prod_price BETWEEN 5 AND 10;
+空值检查：
+SELECT cust_id FROM customers
+WHERE cust_email IS NULL; //匹配或不匹配检查中，空值可能被过滤不显示
+
+Chapter 7 	数据过滤
+1.	组合Where子句
+AND优先于OR，使用()控制顺序：
+SELECT prod_name, prod_price FROM products
+WHERE (vend_id = 1002 OR vend_id = 1003) AND prod_price >=10;
+2.	IN操作符
+IN指定范围条件，在()内逗号隔开：长清单更直观，易管理计算次序，比OR执行快，能包含其他select语句
+SELECT prod_name, prod_price FROM products
+WHERE vend_id IN(1002,1003) ORDER BY prod_name;
+3.	NOT操作符
+对IN, BETWEEN, EXIST取反
+
+Chapter 8 	用通配符进行过滤
+1.	LIKE操作符
+%：任意字符出现任意次数；可在任意位置，可使用多个；可代表0个字符、尾空格；不能匹配null
+SELECT prod_id, prod_name FROM products 
+WHERE prod_name LIKE ‘%anvil%’;
+_：只匹配单个字符
+SELECT prod_id, prod_name FROM products
+WHERE prod_name LIKE ‘_ ton anvil’;
+2.	通配符不要过度使用，除非必要，不要用在搜索模式的最开始
+
+Chapter 9 	用正则表达式进行搜索
+1.	正则表达式用来匹配文本的特殊的串（字符集合），用模式比较文本串
+2.	MySQL：通过WHERE对正则表达式提供除不支持
+a.	基本字符匹配：REGEXP后为正则表达式处理，.为正则表达式中特殊字符，表示匹配任一个字符
+SELECT prod_name FROM products	
+WHERE prod_name REGEXP ‘.000’ ORDER BY prod_name
+与LIKE的区别：LIKE匹配整个列，REGEXP在列之内匹配；例：对’JetPack 1000’, LIKE’1000’要加通配符，REGEXP’1000’可以查到
+MySQL中正则不区分大小写，可用REGEXP BINARY区分
+b.	进行OR匹配：使用 | 
+REGEXP ‘1000|2000|3000’
+c.	匹配几个字符之一：使用[]
+例：[123] 为[1|2|3]的缩写
+^否定字符集：[^123]
+d.	定义匹配范围：使用-
+例：[a-e]等同[abcde]
+e.	匹配特殊字符：使用\\前导
+例：\\. \\- \\\
+引用元字符有特殊含义的字符：\\f 换页, \\n 换pi行，\\r 回车，\\t 制表, \\v 纵向制表
+f.	匹配字符类
+详略 见书
+g.	匹配多个实例
+使用重复元字符：*0或多个匹配；+1个或多个匹配，等于{1, }；  0或1个匹配，等于{0,1}； {n}指定数目匹配；{n,}不少于指定数目匹配；{n,m}匹配数目范围（m<=255）
+例：REGEXP ‘\\([0-9]sticks?\\)’;
+REGEXP ‘[[:digit:]]{4}’匹配连在一起的4位数字
+h.	定位符
+^文本的开始 $文本的结尾 [[:<:]]词的开始 [[:>:]]词的结尾
+
+Chapter 10 	创建计算字段
+1.	计算字段
+2.	拼接字段(concatenate field)
+Concat() 拼接两个列
+RTrim()去掉值右边的所有空格；LTrim()左边；Trim()两边
+AS 赋予拼接列名字
+SELECT Concat(RTrim(vend_name), ‘(‘, RTrim(vend_country), ‘)’) AS vend_title
+FROM vendors ORDER BY vend_name;
+3.	执行算数计算
+=, +, -, *, /
+Now() 返回当前时间
