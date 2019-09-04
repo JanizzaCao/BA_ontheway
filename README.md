@@ -4,8 +4,9 @@
 ## MySQL
 
 ### 《MySQL必知必会》笔记二次整理
-[Chatper 1-5](MySQL/MySQLCC_Chatper1-5)  
-[Chatper 6-10](MySQL/MySQLCC_Chatper6-10)
+[Chatper 1-5](MySQL/MySQLCC_Chatper01-05)  
+[Chatper 6-10](MySQL/MySQLCC_Chatper06-10)
+[Chatper 11-15](MySQL/MySQLCC_Chatper11-15)
 
 ### 统计学
 
