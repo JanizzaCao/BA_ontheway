@@ -1,0 +1,107 @@
+Chapter 11 	使用数据处理函数
+1.	函数：可移植性不强，DBMS各不相同
+2.	使用函数
+a.	文本处理函数
+RTrim(), LTrim()
+Upper() 转换大写，Lower()转换小写
+Left()返回串左边的字符，Right()返回串右边的字符
+Length()返回串的长度，Locate()找出串的一个字串
+SubString()返回子串的字符
+Soundex()将文本串转为描述其语音表示的字母数字模式的算法，对串进行发音比较
+SELECT vend_name, Upper(vend_name) AS vend_name_upcase FROM vendors ORDER BY vend_name;
+SELECT cust_name, cust_contact FROM customers WHERE soundex(cust_contact) = Soundex(‘Y Lie’);
+b.	日期和时间处理函数
+具体函数见书
+SELECT cust_id, order_num FROM orders WHERE Year(order_date) = 2005 AND Month(order_date) = 9;
+c.	数值处理函数
+具体函数见书
+
+Chapter 12 	汇总数据
+1.	聚集函数
+a.	AVG() 平均数：返回所有列/特定列/特定行
+获取多个均值要用多个AVG()
+b.	COUNT() 某列的行数
+SELECT count(*) AS num_cust FROM customers; //对空值和非空值记数
+SELECT COUNT(cust_email) AS num_cust FROM customers; //对有值的行计数
+c.	MAX() 某列最大值，忽略null行；可用于文本列查找，排序返回最后一行
+d.	MIN() 某列最小值，忽略null行
+e.	SUM() 某列之和，忽略null行
+2.	聚集不同值：DISTINCT
+SELECT AVG(DISTINCT prod_price) AS avg_price FROM products
+WHERE vend_id = 1003;
+只用于count(), 不用于count(*), 不允许COUNT(DISTINCT)
+必须使用列名，不用于计算或表达式
+3.	组合聚集函数
+SELECT COUNT(*) AS num_items,
+MIN(prod_price) AS price_min,
+MAX(prod_price) AS price_max,
+ABC(prod_price) AS price_avg
+FROM products;
+
+Chapter 13 	分组数据
+1.	数据分组
+2.	创建分组 GROUP BY
+a.	使用GROUP BY
+SELECT vend_id, COUNT(*) AS num_prods
+FROM products GROUP BY vend_id;
+b.	规定：可以包含任意数目的列，可以嵌套；嵌套中不能从个别的列取回数据；不能是聚集函数，不能用别名，除聚集计算语句，select中每个列都在group by中给出；null作为一个分组返回；where之后，order by之前
+c.	With rollup：得到每个分组和分组汇总级
+SELECT vend_id, COUNT(*) AS num_prods
+FROM products GROUP BY vend_id WITH ROLLUP;
+3.	过滤分组 HAVING
+与where的区别：where过滤行，在分组之前；having过滤分组，在分组之后
+SELECT vend_id, COUNT(*) AS num_prods FROM products 
+WHERE prod_price >= 10 
+GROUP BY vend_id HAVING COUNT(*) >=2;
+4.	分组与排序
+Order by: 排序输出，任意列可用，非必须
+Group by: 分组行，但输出顺序不定；只能选择列或表达式列；与聚集函数一起使用列，则必须使用
+SELECT order_num, SUM(quantity*item_price) AS ordertotal
+FROM orderitems
+GROUP BY order_num
+HAVING SUM(quantity * item_price) >= 50
+ORDER BY ordertotal;
+5.	SELECT子句顺序
+SELECT… FROM… WHERE… GROUP BY…
+HAVING… ORDER BY… LIMIT… 
+
+Chapter 14 	使用子查询(subquery)
+1.	子查询
+2.	利用子查询进行过滤
+例：检索编号 – 相关的客户ID – 客户的具体信息
+SELECT cust_name, cust contact FROM customers 
+WHERE cust_id IN(
+	SELECT cust_id FROM orders
+	WHERE order_num IN(
+		SELECT order_num FROM orderitems WHERE prod_id = ‘TNT2’));
+列必须匹配：select与where子句中有相同数目的列，可返回单、多个列
+一般与IN结合使用，也可用于=，<>
+3.	作为计算字段使用子查询
+SELECT cust_name, cust_state,
+	(SELECT COUNT(*) FROM orders
+	WHERE orders.cust_id = customers.cust_id) AS orders //使用完全限定列名
+FROM customers ORDER BY cust_name;
+
+Chapter 15 	联结表
+1.	联结(join)
+a.	关系表
+Primary key, foreigh key
+b.	使用联结：多个表返回一组输出
+2.	创建联结
+SELECT vend_name, prod_ame, prod_price FROM vendors, products
+WHERE vendors.vend_id = products.vend_id
+ORDER BY vend_name, prod_name;
+a.	Where子句的重要性：使第一个表中的每一行与第二个表中每一行配对
+笛卡尔积(cartesian products)：由无联结条件的表关系返回的结果，行数为两表的行数相乘 
+b.	内部联结(等值联结, equijoin)
+基于两个表之间的相等测试
+SELECT vend_name, prod_name, prod_price 
+FROM vendors INNER JOIN products
+ON vendors.vend_id = products.vend_id
+c.	联结多个表
+列出所有表，定义表之间的关系
+SELECT cust_name, cust_contact
+FROM customers, orders, orderitems
+WHERE customers.cust_id = orders.cust_id
+AND orderitems.order_num = orders.order_num
+AND prod_id = ‘TNT2’;
