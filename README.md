@@ -11,6 +11,8 @@
 5. [Chatper 21-25](MySQL/MySQLCC_Chatper21-25.md)
 5. [Chatper 26-30](MySQL/MySQLCC_Chatper26-30.md)
 
+### 练习题
+
 ## 统计学
 
 ## 数据分析
@@ -18,3 +20,5 @@
 ### Excel
 ### R
 ### Tableau
+
+## PTE  
