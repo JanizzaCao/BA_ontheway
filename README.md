@@ -1,5 +1,7 @@
 # BA_ontheway
 19年下半年开始一系列自学和复习的笔记
+## 内容准备
+2019.11 [整理资料](resources_pack.md)
 
 ## MySQL
 
