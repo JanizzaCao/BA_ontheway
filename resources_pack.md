@@ -1,6 +1,6 @@
 # 资料整理
 
-## SQL
+## 一、SQL
 ### 线上练习平台
 1. [自学SQL](http://xuesql.cn/lesson/select_queries_order_of_execution)
 
@@ -9,8 +9,8 @@
 
 ### 练习题、面经
 
-## 数据分析
+## 二、数据分析
 
-## Python
+## 三、Python
 
-## 英语
+## 四、英语
