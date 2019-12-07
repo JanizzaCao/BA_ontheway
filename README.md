@@ -1,6 +1,6 @@
 # BA_ontheway
 19年下半年开始一系列自学和复习的笔记
-# 2019.11.5 - 2019.12.7
+# Stage2: 2019.11.5 - 2019.12.7
 ## 00 面经总结&项目练习
   [table of content](00_practice&summary/table_of_content.md)  
   [key point](00_practice&summary/key_point.md)  
@@ -30,7 +30,7 @@
 
 
 
-# 2019.9-10
+# Stage 1:2019.9-10
 ## 内容准备
 2019.11 [整理资料](resources_pack.md)
 
