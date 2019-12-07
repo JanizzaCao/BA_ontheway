@@ -1,5 +1,7 @@
 # On the way of BA
 ![莫思身外无穷事 且尽生前有限杯](title.png)
+# Stage3: projects & CV  
+[my practice projects](https://github.com/JanizzaCao/Janice_Cao_projects)
 # Stage2: 2019.11.5 - 2019.12.7
 ## 00 面经总结&项目练习
   [table of content](00_practice&summary/table_of_content.md)  
