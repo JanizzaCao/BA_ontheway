@@ -2,7 +2,7 @@
 19年下半年开始一系列自学和复习的笔记
 # 2019.11.5 - 2019.12.7
 ## 00 面经总结&项目练习
-
+  [table of content](00_practice&summary/table_of_content.md)
 ## 01 数理统计与分析
 
 ## 02 Excel
